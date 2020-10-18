@@ -10,18 +10,22 @@ class _MyFirstPageState extends State<MyFirstPage> {
   bool _enabled = false;
   String _msg1 = '';
   String _msg2 = '';
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
     Object onPressed1() {
       if (_enabled) {
-        print(
-            'onPressed1 returning address of anonymous function but NOT running it');
-        return () {
-          print('Buttonnpressed as anonymous function now running');
-        };
+        return () {};
       } else {
-        print('onPressed1 returning NULL');
+        return null;
+      }
+    }
+
+    Object onPressed2() {
+      if (_enabled) {
+        return () {};
+      } else {
         return null;
       }
     }
@@ -40,17 +44,14 @@ class _MyFirstPageState extends State<MyFirstPage> {
                 Switch(
                   value: _enabled,
                   onChanged: (bool onChangedValue) {
-                    print('onChangedValue is $onChangedValue');
                     setState(() {
                       _enabled = onChangedValue;
                       if (_enabled) {
-                        _msg1 = 'Enabled';
-                        print('_enabled is true');
+                        _msg1 = 'Click Me';
                         _msg2 = 'Reset';
                       } else {
                         _msg1 = '';
                         _msg2 = '';
-                        print('_enabled is false');
                       }
                     });
                   },
@@ -88,7 +89,7 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     highlightColor: Colors.deepPurpleAccent,
                     splashColor: Colors.white,
                     padding: EdgeInsets.all(20.0),
-                    onPressed: onPressed1(),
+                    onPressed: onPressed2(),
                     child: Text(_msg2),
                   ),
                 )
@@ -98,5 +99,27 @@ class _MyFirstPageState extends State<MyFirstPage> {
         ),
       ),
     );
+  }
+
+  void incrementCount() {
+    if (_enabled) {
+      setState(() {
+        counter++;
+        _msg1 = "Clicked $counter";
+      });
+    } else {
+      return null;
+    }
+  }
+
+  void resetButton() {
+    if (_enabled) {
+      setState(() {
+        _msg1 = 'Click Me';
+        counter = 0;
+      });
+    } else {
+      return null;
+    }
   }
 }
