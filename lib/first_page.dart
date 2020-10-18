@@ -14,17 +14,21 @@ class _MyFirstPageState extends State<MyFirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    Object onPressed1() {
+    Object leftBtnPressed() {
       if (_enabled) {
-        return () {};
+        return () {
+          incrementCount();
+        };
       } else {
         return null;
       }
     }
 
-    Object onPressed2() {
+    Object rightBtnPressed() {
       if (_enabled) {
-        return () {};
+        return () {
+          resetButton();
+        };
       } else {
         return null;
       }
@@ -47,7 +51,11 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     setState(() {
                       _enabled = onChangedValue;
                       if (_enabled) {
-                        _msg1 = 'Click Me';
+                        if (counter > 0) {
+                          _msg1 = 'Clicked $counter';
+                        } else {
+                          _msg1 = 'Click Me';
+                        }
                         _msg2 = 'Reset';
                       } else {
                         _msg1 = '';
@@ -73,7 +81,7 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     highlightColor: Colors.blue,
                     splashColor: Colors.green.shade300,
                     padding: EdgeInsets.all(20.0),
-                    onPressed: onPressed1(),
+                    onPressed: leftBtnPressed(),
                     child: Text(_msg1),
                   ),
                 ),
@@ -89,7 +97,7 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     highlightColor: Colors.deepPurpleAccent,
                     splashColor: Colors.white,
                     padding: EdgeInsets.all(20.0),
-                    onPressed: onPressed2(),
+                    onPressed: rightBtnPressed(),
                     child: Text(_msg2),
                   ),
                 )
